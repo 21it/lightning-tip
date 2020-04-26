@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+ lightning-tip:
+   image: tkachuk-labs/lightning-tip:TODO_ADD_VERSION
+   restart: always
+   ports:
+     - "4000:3000"
+   environment:
+     YESOD_PGUSER: "postgres"
+     YESOD_PGPASS: "postgres"
+     YESOD_PGHOST: "postgres"
+     YESOD_PGDATABASE: "lightning-tip"
+   depends_on:
+     - "postgres"
+ postgres:
+   image: postgres:11.3-alpine
+   restart: always
+   environment:
+     POSTGRES_USER: "postgres"
+     POSTGRES_PASSWORD: "postgres"
+     POSTGRES_DB: "lightning-tip"
+   healthcheck:
+     test: ["CMD", "pg_isready", "-h", "postgres", "-U", "postgres"]
+     interval: 1s
+     timeout: 10s
+     retries: 3
