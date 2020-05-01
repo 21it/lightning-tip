@@ -16,7 +16,7 @@ in
 with pkgs';
 
 let haskell-ide = import (
-      fetchTarball "https://github.com/tim2CF/ultimate-haskell-ide/tarball/master"
+      fetchTarball "https://github.com/tim2CF/ultimate-haskell-ide/tarball/982a27e352c35eb05ce41210705e841c0eb79c80"
     ) {};
 in
 
