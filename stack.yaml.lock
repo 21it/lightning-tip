@@ -3,7 +3,28 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
+    pantry-tree:
+      size: 1180
+      sha256: 35044d67979fe2a5cff05cf8736a06a265592433cdd03e13a72908ceed892612
+  original:
+    hackage: envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
+- completed:
+    cabal-file:
+      size: 3662
+      sha256: c9fee7c9dcb3bd355d164257d08048fd4f94876ced86c24e058b80b00761c866
+    name: lnd-client
+    version: 0.1.0.0
+    git: https://github.com/coingaming/lnd-client.git
+    pantry-tree:
+      size: 2858
+      sha256: de771ba5cb0e2caa78a1f5e35a902f325146966a001d9997ee702e03940f4f96
+    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
+  original:
+    git: https://github.com/coingaming/lnd-client.git
+    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
 snapshots:
 - completed:
     size: 524996

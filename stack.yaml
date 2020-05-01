@@ -40,6 +40,10 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 # extra-deps: []
+extra-deps:
+  - envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
+  - git: https://github.com/coingaming/lnd-client.git
+    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
