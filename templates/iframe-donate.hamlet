@@ -1,3 +1,6 @@
 <div .ui.container.compact.center>
-  <form .form-inline.justify-content-center role=form method=post action=@{HomeR} enctype=#{formEnctype}>
+  <form .form-inline.justify-content-center role=form method=post action=@{IframeDonateR} enctype=#{formEnctype} id=#{formId}>
     ^{formWidget}
+    <noscript>
+      <button type="submit" .btn.btn-default>_{MsgSubmitDonateFormBtn}
+  <div .margin-top.text-center> You donated _{moneyAmount} sat
