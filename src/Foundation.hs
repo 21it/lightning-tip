@@ -8,6 +8,7 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
+{-# OPTIONS_GHC -Wno-partial-fields #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 module Foundation where
@@ -42,6 +43,8 @@ data App
         appHttpManager :: Manager,
         appLogger :: Logger
       }
+
+mkMessage "App" "messages" "en"
 
 data MenuItem
   = MenuItem
@@ -173,6 +176,7 @@ instance Yesod App where
   isAuthorized (AuthR _) _ = return Authorized
   isAuthorized CommentR _ = return Authorized
   isAuthorized HomeR _ = return Authorized
+  isAuthorized IframeDonateR _ = return Authorized
   isAuthorized FaviconR _ = return Authorized
   isAuthorized RobotsR _ = return Authorized
   isAuthorized (StaticR _) _ = return Authorized
@@ -308,6 +312,7 @@ instance HasHttpManager App where
 
 unsafeHandler :: App -> Handler a -> IO a
 unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
+
 -- Note: Some functionality previously present in the scaffolding has been
 -- moved to documentation in the Wiki. Following are some hopefully helpful
 -- links:
@@ -315,3 +320,13 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 -- https://github.com/yesodweb/yesod/wiki/Sending-email
 -- https://github.com/yesodweb/yesod/wiki/Serve-static-files-from-a-separate-domain
 -- https://github.com/yesodweb/yesod/wiki/i18n-messages-in-the-scaffolding
+
+noLayout :: Widget -> Handler Html
+noLayout widget = do
+  master <- getYesod
+  (title, parents) <- breadcrumbs
+  pc <- widgetToPageContent $ do
+    addStylesheet $ StaticR css_bootstrap_css
+    addStylesheet $ StaticR css_app_css
+    $(widgetFile "no-layout")
+  withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")

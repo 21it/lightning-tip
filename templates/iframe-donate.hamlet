@@ -1,0 +1,3 @@
+<div .ui.container.compact.center>
+  <form .form-inline.justify-content-center role=form method=post action=@{HomeR} enctype=#{formEnctype}>
+    ^{formWidget}

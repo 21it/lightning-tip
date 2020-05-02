@@ -32,6 +32,7 @@ import Database.Persist.Postgresql (createPostgresqlPool, pgConnStr, pgPoolSize)
 import Handler.Comment
 import Handler.Common
 import Handler.Home
+import Handler.IframeDonate
 import Handler.Profile
 import Import
 import Language.Haskell.TH.Syntax (qLocation)
