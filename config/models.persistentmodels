@@ -15,3 +15,15 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     userId UserId Maybe
     deriving Eq
     deriving Show
+
+Payment
+    lndRHash Lnd.RHash
+    lndPaymentRequest Lnd.PaymentRequest
+    lndAddIndex Lnd.AddIndex
+    moneyAmount Lnd.MoneyAmount
+    currencyCode CurrencyCode
+    status PaymentStatus
+    insertedAt UTCTime
+    updatedAt UTCTime
+    settledAt UTCTime Maybe
+    UniquePayment lndRHash
