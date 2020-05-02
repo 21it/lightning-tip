@@ -15,7 +15,11 @@
 module Model where
 
 import ClassyPrelude.Yesod
+import Data.Pool (Pool)
+import Database.Persist.Migration
+import qualified Database.Persist.Migration.Postgres as P (runMigration)
 import Database.Persist.Quasi
+import Database.Persist.Sql hiding (Migration, migrate)
 import LightningTip.Types
 import LndClient.Data.Newtypes as Lnd
 
@@ -27,5 +31,27 @@ import LndClient.Data.Newtypes as Lnd
 -- TODO : add search indexes migrations
 --
 share
-  [mkPersist sqlSettings, mkMigrate "migrateAll"]
+  [mkPersist sqlSettings, mkMigrate "migrateAuto"]
   $(persistFileWith lowerCaseSettings "config/models.persistentmodels")
+
+migrateAfter :: Migration
+migrateAfter =
+  [ 0
+      ~> 1
+      := [ RawOperation "create Payment search indexes"
+             $ lift
+               . return
+             $ [ MigrateSql
+                   "CREATE INDEX ON payment (money_amount, status);"
+                   []
+               ]
+         ]
+  ]
+
+migrateAll :: (MonadLogger m, MonadIO m) => Pool SqlBackend -> m ()
+migrateAll pool = do
+  $(logInfo) "Running Persistent AUTO migrations..."
+  liftIO $ runSqlPool (runMigration migrateAuto) pool
+  $(logInfo) "Running Persistent AFTER migrations..."
+  liftIO $ runSqlPool (P.runMigration defaultSettings migrateAfter) pool
+  $(logInfo) "Persistent database migrated!"
