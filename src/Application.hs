@@ -77,6 +77,19 @@ makeFoundation appSettings = do
   -- subsite.
   appHttpManager <- getGlobalManager
   appLogger <- newStdoutLoggerSet defaultBufSize >>= makeYesodLogger
+  appLndEnv <- readLndEnv
+  handleScribe <-
+    mkHandleScribeWithFormatter
+      bracketFormat
+      ColorIfTerminal
+      stdout
+      (permitItem DebugS)
+      V2
+  appKatipLE <-
+    registerScribe "stdout" handleScribe defaultScribeSettings
+      =<< initLogEnv "LightningTip" "prod"
+  let appKatipNS = mempty
+  let appKatipCTX = mempty
   appStatic <-
     (if appMutableStatic appSettings then staticDevel else static)
       (appStaticDir appSettings)

@@ -43,7 +43,7 @@ packages:
 extra-deps:
   - envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
   - git: https://github.com/coingaming/lnd-client.git
-    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
+    commit: a3582c80d017798d476ee57a05eafd380ba135f9
   - github: coingaming/persistent-migration
     commit: d75fb27181319e3fe18ff19e45198feee6a88187
 

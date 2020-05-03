@@ -9,6 +9,7 @@
 module Handler.IframeDonate where
 
 import Import
+import LndClient.Data.AddInvoice
 
 --
 -- TODO
@@ -34,6 +35,13 @@ postIframeDonateR = do
   noLayout $ do
     setTitleI MsgIframeDonateRTitle
     $(widgetFile "iframe-donate")
+
+strictAddInvoice :: MoneyAmount -> Handler (Maybe AddInvoiceResponse)
+strictAddInvoice ma = do
+  env <- appLndEnv <$> getYesod
+  maybeRPCResponse <$> addInvoice env req
+  where
+    req = hashifyAddInvoiceRequest $ AddInvoiceRequest Nothing ma Nothing
 
 maForm :: AForm Handler MoneyAmount
 maForm =

@@ -1,4 +1,6 @@
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -25,7 +27,7 @@ import Text.Hamlet (hamletFile)
 import Text.Jasmine (minifym)
 import Yesod.Auth.Dummy
 import Yesod.Auth.OpenId (IdentifierType (Claimed), authOpenId)
-import Yesod.Core.Types (Logger)
+import Yesod.Core.Types (HandlerFor (..), Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 import Yesod.Default.Util (addStaticContentExternal)
 
@@ -36,12 +38,17 @@ import Yesod.Default.Util (addStaticContentExternal)
 data App
   = App
       { appSettings :: AppSettings,
+        appLndEnv :: LndEnv,
         -- | Settings for static file serving.
         appStatic :: Static,
         -- | Database connection pool.
         appConnPool :: ConnectionPool,
         appHttpManager :: Manager,
-        appLogger :: Logger
+        appLogger :: Logger,
+        -- | Katip logger
+        appKatipNS :: Namespace,
+        appKatipCTX :: LogContexts,
+        appKatipLE :: LogEnv
       }
 
 mkMessage "App" "messages" "en"
@@ -330,3 +337,17 @@ noLayout widget = do
     addStylesheet $ StaticR css_app_css
     $(widgetFile "no-layout")
   withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
+
+--
+-- TODO : implement local* through reader
+--
+
+instance Katip (HandlerFor App) where
+  getLogEnv = appKatipLE <$> getYesod
+  localLogEnv _ x = x
+
+instance KatipContext (HandlerFor App) where
+  getKatipContext = appKatipCTX <$> getYesod
+  localKatipContext _ x = x
+  getKatipNamespace = appKatipNS <$> getYesod
+  localKatipNamespace _ x = x

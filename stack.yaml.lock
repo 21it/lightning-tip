@@ -13,18 +13,18 @@ packages:
     hackage: envparse-0.4.1@sha256:989902e6368532548f61de1fa245ad2b39176cddd8743b20071af519a709ce30,2842
 - completed:
     cabal-file:
-      size: 3662
-      sha256: c9fee7c9dcb3bd355d164257d08048fd4f94876ced86c24e058b80b00761c866
+      size: 3705
+      sha256: 2349cc28b2bd97c9c8b84661a1c5298a141be6eca3e79faf057c0807308ba273
     name: lnd-client
     version: 0.1.0.0
     git: https://github.com/coingaming/lnd-client.git
     pantry-tree:
-      size: 2858
-      sha256: de771ba5cb0e2caa78a1f5e35a902f325146966a001d9997ee702e03940f4f96
-    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
+      size: 2980
+      sha256: 43acced126cd59aa976285da598a68150e4a14fe75c582a851e7ea8140bde70f
+    commit: a3582c80d017798d476ee57a05eafd380ba135f9
   original:
     git: https://github.com/coingaming/lnd-client.git
-    commit: a53d86cb1210a2e1ad5b6848f21c4111571047f9
+    commit: a3582c80d017798d476ee57a05eafd380ba135f9
 - completed:
     size: 24681
     url: https://github.com/coingaming/persistent-migration/archive/d75fb27181319e3fe18ff19e45198feee6a88187.tar.gz
