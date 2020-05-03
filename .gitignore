@@ -26,3 +26,7 @@ cabal.sandbox.config
 *~
 \#*
 lightning-tip.cabal
+.bitcoin/*
+!.bitcoin/bitcoin.conf
+.lnd-*/*
+!.lnd-*/lnd.conf
